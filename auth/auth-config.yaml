@@ -1,0 +1,80 @@
+apiVersion: v1
+metadata:
+  namespace: default
+  name: auth-production-config
+kind: ConfigMap
+data:
+  production.json: |
+    {
+        "enableSwaggerUi": true,
+        "userRegistry": {
+            "users": {
+                "aqs": {
+                  "scope": {
+                      "organisations": "*"
+                  }
+                },
+                "cdp": {
+                    "scope": {
+                        "organisations": "*",
+                        "sub": "AHA eLearning"
+                    }
+                },
+                "cdp-hs-migration": {
+                    "scope": {
+                        "organisations": "*",
+                        "sub": "cdp-prod-rqip"
+                    }
+                },
+                "cdp-rqip-prod": {
+                    "scope": {
+                        "organisations": "*",
+                        "sub": "cdp-prod-rqip"
+                    }
+                },
+                "cs": {
+                    "scope": {
+                        "organisations": "*"
+                    }
+                },
+                "juice": {
+                    "scope": {
+                        "organisations": "*"
+                    }
+                },
+                "test1": {
+                    "scope": {
+                        "organisations": "*"
+                    }
+                },
+                "test2": {
+                    "scope": {
+                        "organisations": "*"
+                    }
+                },
+                "globus": {
+                    "scope": {
+                        "sub": "internal-api-user",
+                        "aud": [
+                            "internal-apis"
+                        ]
+                    }
+                },
+                "rqi-user": {
+                    "scope": {
+                        "sub": "cdp-prod-rqip",
+                        "aud": [
+                            "internal-apis"
+                        ]
+                    }
+                }
+            },
+            "passwords": {
+                "file": "/config/passwords"
+            }
+        },
+        "keyPair": {
+            "kid": "760cf862-faaa-49d4-9b87-b38915b31719",
+            "publicKey": "-----BEGIN RSA PUBLIC KEY-----\nMIIBCgKCAQEAlx9FjKcbpJy+KVJKB8rChk2+0YTxxUVGmi+J8MCTK6rO/8OKEu19\ngXveNJSEJPBxL0I//ZOequtTihPmdcvSQiTo1KK5/YI+wVtrPe0ICzblttRtfv8u\nPbZvTlYRbzRA7opjaTx8NfVZ7OKj1TkVmZ1rcT9jkrAwCjALtNOTYfuG102uwyth\nk5z3lgJjNA/mS0HUOcG08tk24IKpcdc6HdodNrNlwRo/2xQPUwAvCpTvn4AruuJS\n+gYfSuMyk6FLp3gSLEjojbqaIswQZ2OtBHHEzLDmpjhK1yXI0DO5Ugt7F8k1N7rc\n8W35mciRDD/gwOrqWoij0b7MHpv7n6y25wIDAQAB\n-----END RSA PUBLIC KEY-----"
+        }
+    }

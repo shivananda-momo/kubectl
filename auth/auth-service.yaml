@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: auth-service
+  labels:
+    app: authentication-service
+spec:
+  ports:
+    - name: web
+      port: 4500
+  selector:
+    app: auth-deployment
+  type: NodePort

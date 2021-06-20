@@ -1,0 +1,56 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  namespace: default
+  name: auth-deployment
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: auth-deployment
+    spec:
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: auth
+        image: ecoreg.azurecr.io/hyper-authentication:1.5.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 4500
+        env:
+        - name: PRIVATE_RSA_AUTH_KEY
+          valueFrom:
+            secretKeyRef:
+              name: auth-private-key-secret
+              key: key.pem
+        volumeMounts:
+        - name: auth-production-config
+          mountPath: /app/config/production.json
+          subPath: production.json
+        - name: auth-passwords-secret
+          mountPath: /config/passwords
+          subPath: passwords
+        resources:
+          limits:
+            cpu: 200m
+            memory: 500Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
+
+      volumes:
+      - name: auth-production-config
+        configMap:
+          name: auth-production-config
+      - name: auth-private-key-secret
+        secret:
+          secretName: auth-private-key-secret
+      - name: auth-passwords-secret
+        secret:
+          secretName: auth-passwords-secret

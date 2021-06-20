@@ -1,2 +1,1 @@
-# kubectl
-# kubectl
+# pod-template-repo
